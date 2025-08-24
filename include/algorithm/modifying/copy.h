@@ -157,7 +157,7 @@ OutputIt copy(RandomAccessIt first,
     return d_first;
 }
 
-void memory_copy(const void* src, void* dest, size_t n, true_type) {
+void copy(const void* src, void* dest, size_t n, true_type) {
     const uint8_t* src_bytes_8 = reinterpret_cast<const uint8_t*>(src);
     uint8_t* dest_bytes_8 = reinterpret_cast<uint8_t*>(dest);
     // 处理内存对齐
@@ -193,7 +193,7 @@ void memory_copy(const void* src, void* dest, size_t n, true_type) {
 }
 
 template <typename T>
-void memory_copy(const T* src, T* dest, size_t n, false_type) {
+void copy(const T* src, T* dest, size_t n, false_type) {
     n = n / sizeof(T);
     for (size_t i = 0; i < n; i++) {
         dest[i] = src[i];
@@ -206,19 +206,13 @@ OutputIt copy(Iterator first, Iterator last, OutputIt d_first, true_type) {
     return copy(first, last, d_first, iterator_category_t<Iterator>{});
 }
 
-// 指针特化
+// 指针分发
 template <typename T>
 T* copy(const T* first, const T* last, T* d_first, true_type) {
     size_t n = static_cast<size_t>(last - first);
-    memory_copy(first, d_first, n * sizeof(T),
-                bool_constant<is_trivially_copyable_v<T>>{});
+    copy(first, d_first, n * sizeof(T),
+         bool_constant<is_trivially_copyable_v<T>>{});
     return d_first + n;
-}
-
-// 类型不同的指针 - 回退到迭代器分发
-template <typename Src_T, typename Dest_T>
-Dest_T copy(Src_T* first, Src_T* last, Dest_T* d_first, false_type) {
-    return copy(first, last, d_first, true_type{});
 }
 
 }  // namespace detail

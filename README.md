@@ -182,19 +182,21 @@
 
 - **[分配器](include/memory/allocator.h)** `allocator`
 
-- **[内存拷贝](include/memory/copy.h)** `copy`
+- **[内存拷贝](include/memory/mecopy.h)** `mecopy`
 
-- **[内存移动](include/memory/move.h)** `move`
+- **[内存移动](include/memory/memove.h)** `memove`
 
-- **[内存填充](include/memory/fill.h)** `fill`
+- **[内存填充](include/memory/mefill.h)** `mefill`
 
 #### **迭代器 `iterators`：**
 
 - **[迭代器](include/iterators/iterator.h)** `iterator`
 
+- **[常量迭代器](include/iterators/const_iterator.h)** `const_iterator`
+
 - **[反向迭代器](include/iterators/reverse_iterator.h)** `reverse_iterator`
 
-- **[流迭代器](include/iterators/stream_iterator.h)** `stream_iterator`
+- **[常量反向迭代器](include/iterators/reverse_iterator.h)** `const_reverse_iterator`
 
 #### **容器 `containers`：**
 
@@ -239,6 +241,16 @@
 - **[无序映射](include/unordered_map.h)** `unordered_map`
 
 #### **算法 `algorithms`：**
+
+- **[拷贝](include/algorithms/modifying/copy.h)** `copy`
+
+- **[移动](include/algorithms/modifying/move.h)** `move`
+
+- **[填充](include/algorithms/modifying/fill.h)** `fill`
+
+- **[相等](include/algorithm/non_modifying/equal.h)** `equal`
+
+- **[字典比较](include/algorithm/non_modifying/lexicographical_compare.h)** `lexicographical_compare`
 
 #### **函数 `functional`：**
 
